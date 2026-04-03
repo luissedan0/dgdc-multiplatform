@@ -5,3 +5,7 @@ interface Platform {
 }
 
 expect fun getPlatform(): Platform
+
+expect fun triggerTestCrash()
+
+expect fun supportsTestCrash(): Boolean

@@ -104,8 +104,10 @@ fun App() {
                             remainingMiles = appState.remainingMiles,
                             completionPercent = appState.completionPercent,
                             totalLoggedMiles = appState.totalMileage,
+                            showTestCrashButton = supportsTestCrash(),
                             onGoalDraftChange = appState::updateGoalDraft,
                             onSetGoalClick = appState::saveGoal,
+                            onTestCrashClick = ::triggerTestCrash,
                             onDeleteSavedDataClick = appState::requestDeleteAllData,
                             onLogoutClick = appState::logout
                         )

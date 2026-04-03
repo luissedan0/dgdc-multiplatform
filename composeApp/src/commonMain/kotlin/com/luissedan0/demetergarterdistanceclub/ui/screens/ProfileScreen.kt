@@ -33,8 +33,10 @@ fun ProfileScreen(
     remainingMiles: Double,
     completionPercent: Double,
     totalLoggedMiles: Double,
+    showTestCrashButton: Boolean,
     onGoalDraftChange: (String) -> Unit,
     onSetGoalClick: () -> Unit,
+    onTestCrashClick: () -> Unit,
     onDeleteSavedDataClick: () -> Unit,
     onLogoutClick: () -> Unit
 ) {
@@ -133,6 +135,19 @@ fun ProfileScreen(
                         .padding(18.dp),
                     verticalArrangement = Arrangement.spacedBy(14.dp)
                 ) {
+                    if (showTestCrashButton) {
+                        Button(
+                            modifier = Modifier.fillMaxWidth(),
+                            onClick = onTestCrashClick,
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.colorScheme.tertiary,
+                                contentColor = MaterialTheme.colorScheme.onTertiary
+                            )
+                        ) {
+                            Text("Trigger test crash")
+                        }
+                    }
+
                     Button(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = onDeleteSavedDataClick,

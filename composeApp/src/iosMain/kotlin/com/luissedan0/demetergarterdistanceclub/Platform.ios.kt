@@ -7,3 +7,7 @@ class IOSPlatform: Platform {
 }
 
 actual fun getPlatform(): Platform = IOSPlatform()
+
+actual fun triggerTestCrash() = Unit
+
+actual fun supportsTestCrash(): Boolean = false

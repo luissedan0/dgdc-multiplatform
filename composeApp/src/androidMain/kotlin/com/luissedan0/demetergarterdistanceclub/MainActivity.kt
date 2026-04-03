@@ -6,11 +6,19 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.google.android.gms.security.ProviderInstaller
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+
+        // Ensure modern TLS support on older devices
+        try {
+            ProviderInstaller.installIfNeeded(this)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
         setContent {
             App()
