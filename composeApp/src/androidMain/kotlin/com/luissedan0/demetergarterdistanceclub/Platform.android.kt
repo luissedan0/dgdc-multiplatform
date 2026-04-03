@@ -14,4 +14,4 @@ actual fun triggerTestCrash() {
     throw RuntimeException("Test Crash")
 }
 
-actual fun supportsTestCrash(): Boolean = true
+actual fun supportsTestCrash(): Boolean = false

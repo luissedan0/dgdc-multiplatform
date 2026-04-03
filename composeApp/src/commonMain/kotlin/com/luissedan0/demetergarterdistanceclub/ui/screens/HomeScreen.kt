@@ -1,6 +1,8 @@
 package com.luissedan0.demetergarterdistanceclub.ui.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,12 +27,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.luissedan0.demetergarterdistanceclub.model.DayLog
 import com.luissedan0.demetergarterdistanceclub.model.WeekBlock
 import com.luissedan0.demetergarterdistanceclub.state.formatTwoDecimals
+import com.luissedan0.demetergarterdistanceclub.ui.modifiers.dismissKeyboardOnTap
 
 @Composable
 fun HomeScreen(
@@ -38,11 +44,14 @@ fun HomeScreen(
     weeks: List<WeekBlock>,
     onMilesChange: (Int, String) -> Unit
 ) {
+    val focusManager = LocalFocusManager.current
+
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
             .padding(paddingValues)
+            .dismissKeyboardOnTap { focusManager.clearFocus() }
             .testTag("home_list"),
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -159,6 +168,8 @@ private fun DayCard(
     entry: DayLog,
     onMilesChange: (Int, String) -> Unit
 ) {
+    val focusManager = LocalFocusManager.current
+
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(20.dp),
@@ -189,15 +200,27 @@ private fun DayCard(
                 )
             }
 
-            OutlinedTextField(
+            Column(
                 modifier = Modifier
                     .weight(1.15f)
-                    .testTag("day_miles_${entry.dayOfMonth}"),
-                value = entry.milesText,
-                onValueChange = { onMilesChange(entry.dayOfMonth, it) },
-                placeholder = { Text("0.00") },
-                singleLine = true
-            )
+            ) {
+                OutlinedTextField(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .testTag("day_miles_${entry.dayOfMonth}"),
+                    value = entry.milesText,
+                    onValueChange = { onMilesChange(entry.dayOfMonth, it) },
+                    placeholder = { Text("0.00") },
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Decimal,
+                        imeAction = ImeAction.Done
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onDone = { focusManager.clearFocus() }
+                    )
+                )
+            }
 
             Checkbox(
                 checked = entry.tracked,
