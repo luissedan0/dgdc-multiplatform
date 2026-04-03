@@ -8,6 +8,8 @@ class IOSPlatform: Platform {
 
 actual fun getPlatform(): Platform = IOSPlatform()
 
-actual fun triggerTestCrash() = Unit
+actual fun triggerTestCrash() {
+    throw RuntimeException("Test Crash")
+}
 
 actual fun supportsTestCrash(): Boolean = false
