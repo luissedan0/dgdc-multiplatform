@@ -19,3 +19,4 @@ captures
 node_modules/
 composeApp/google-services.json
 iosApp/GoogleService-Info.plist
+iosApp/iosApp/GoogleService-Info.plist
