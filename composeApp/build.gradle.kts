@@ -61,8 +61,8 @@ android {
         applicationId = "com.luissedan0.demetergarterdistanceclub"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 2
-        versionName = "0.2"
+        versionCode = 3
+        versionName = "0.3"
     }
     packaging {
         resources {
